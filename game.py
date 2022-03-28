@@ -64,7 +64,7 @@ class Game:
   @property
   def behavior_propagation(self):
     players_with_behavior = sum((1 for player in self.phases[-1].players if player.behavior == self.behavior))
-    return float(players_with_behavior) * 100 / len(self.phases[-1].players) 
+    return round(float(players_with_behavior) * 100 / len(self.phases[-1].players), 3)
 
   @property
   def is_blue_behavior_changed(self):

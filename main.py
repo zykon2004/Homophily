@@ -25,7 +25,7 @@ def main():
     results.append(game.to_list())
 
   df = pd.DataFrame(results, columns=Game.columns)
-  print(df)
+  simulator.explain_len()
 
 if __name__ == '__main__':
     main()
