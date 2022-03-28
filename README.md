@@ -1,0 +1,2 @@
+# Homophily
+Game theory simulator
