@@ -68,7 +68,7 @@ class Game:
 
   @property
   def is_blue_behavior_changed(self):
-    for player in self.players.values():
+    for player in self.phases[-1].players.values():
       if all((player.group == Player.BLUE_BEHAVIOR ,
              player.behavior == self.behavior)):
         return True
