@@ -19,9 +19,9 @@ class Game:
     'depth', 
     'is_blue_behavior_changed',
     'players_with_behavior', 
-    'connections_mean', 
-    'outer_connections', 
-    'inner_connections', 
+    'edge_degree', 
+    'outer_edges', 
+    'inner_edges', 
     'red_players',
     'blue_players',
     'args'
