@@ -52,6 +52,41 @@ class Simulator:
       yield next(self)
       previous_index = index
   
+  def random_combination_generator(self):
+    # RED
+    red_players = *(f'Red{number}' for number in range(self.red_player_num)),
+    possible_red_connections = combinations(red_players, 2)
+    red_combinations = *(combinations(possible_red_connections, self.red_group_connections)),
+    red_players_with_behavior = *(combinations(red_players, self.players_with_behavior_num)),
+
+    # BLUE
+    blue_players = *(f'Blue{number}' for number in range(self.blue_player_num)),
+    possible_blue_connections = combinations(blue_players, 2)
+    blue_combinations = *(combinations(possible_blue_connections, self.blue_group_connections)),
+
+    # Q
+    possible_behaviors = []
+    for _q in np.linspace(0.1, 1.0, num=self.q_num):
+      possible_behaviors.append(
+          BehavioralAttribute(self.behavior.name, 
+                              self.behavior.shape, 
+                              round(_q, 2))
+          )
+    # OUTER CONNECTIONS
+    outer_connection_combinations = *(combinations(
+        product(red_players, blue_players), 
+        self.outer_group_connections
+        )),
+    
+    while True:
+      yield (
+        random.choice(red_combinations),
+        random.choice(blue_combinations),
+        random.choice(outer_connection_combinations),
+        random.choice(red_players_with_behavior),
+        random.choice(possible_behaviors),
+      )
+
   def generate_all_combination(self):
 
     # RED
@@ -89,30 +124,6 @@ class Simulator:
       ):
       yield _aggregated_product
       self.counter += 1
-    # for outer_combo in outer_connection_combinations:
-    #   for red_combo in red_combinations:
-    #     for blue_combo in blue_combinations:
-    #       for infected_combo in red_players_with_behavior:
-    #         for _behavior in possible_behaviors:
-    #           self.counter += 1
-    #           yield (red_combo, blue_combo, outer_combo, infected_combo, _behavior)
-    #           # Variations of inner to outer connections exchange
-    #           for modified_combo in self.generate_more_outer_connections(red_combo, blue_combo, outer_combo):
-    #             self.counter += 1
-    #             yield (*modified_combo, infected_combo, _behavior)
-
-  # def generate_more_outer_connections(self, red_combo, blue_combo, outer_combo):
-  #   for red_connection in red_combo:
-  #     new_red_combo = red_combo.difference({red_connection, })
-  #     for blue_connection in blue_combo:
-  #       new_combos = *product(red_connection, blue_connection),
-  #       new_blue_combo = blue_combo.difference({blue_connection, })
-  #       yield (new_red_combo,
-  #              new_blue_combo,
-  #              (*outer_combo, new_combos[0], new_combos[2]))
-  #       yield (new_red_combo,
-  #              new_blue_combo,
-  #              (*outer_combo, new_combos[1], new_combos[3]))
         
   def explain_len(self, _print:bool = True, _return = False):
     red_combinations = gmpy2.comb(gmpy2.comb(self.red_player_num, 2), self.red_group_connections)

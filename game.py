@@ -1,4 +1,5 @@
 from collections import deque
+from contextlib import suppress
 from dataclasses import dataclass
 from typing import ClassVar
 
@@ -51,8 +52,9 @@ class Game:
                          behavior:BehavioralAttribute) -> None:
     
     for player in players_with_behavior:
-      self.players[player].behavior = behavior
-      self.players[player].size = Player.default_size + 5
+      with suppress(KeyError):  # Could happen if player has no connections
+        self.players[player].behavior = behavior
+        self.players[player].size = Player.default_size + 5
 
   @property
   def depth(self):
