@@ -18,14 +18,21 @@ def main():
     q_num = 10
   )
   results = []
-
-  for _ in range(30):
-    game = Game(*next(simulator))
+  for s in simulator.random_samples_generator(number_of_samples=10):
+    game = Game(*s)
     game()
     results.append(game.to_list())
-
+    
   df = pd.DataFrame(results, columns=Game.columns)
-  simulator.explain_len()
+  print(df)
+  # simulator.explain_len()
+  # for _ in range(30):
+  #   game = Game(*next(simulator))
+  #   game()
+  #   results.append(game.to_list())
+
+  # df = pd.DataFrame(results, columns=Game.columns)
+  # simulator.explain_len()
 
 if __name__ == '__main__':
     main()

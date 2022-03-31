@@ -2,6 +2,7 @@ import gmpy2
 import numpy as np
 from dataclasses import dataclass
 from itertools import combinations, product
+import random
 
 from attribute import BehavioralAttribute, Attribute
 from player import Player
@@ -39,6 +40,17 @@ class Simulator:
       for player in connection:
         player_in_combo.add(player)
     return player_in_combo
+  
+  
+  def random_samples_generator(self, number_of_samples):
+    random_indexes = random.sample(range(0, len(self)), number_of_samples)
+    random_indexes.sort()
+    previous_index = 0
+    for index in random_indexes:
+      for _ in range(index - previous_index - 1):
+        next(self)
+      yield next(self)
+      previous_index = index
   
   def generate_all_combination(self):
 
