@@ -9,6 +9,7 @@ def main():
   
   PLAYERS_WITH_BEHAVIOR_NUM = 2
   PLAYERS_ON_EACH_GROUP = 5
+  Q_NUM = 100
   simulators = (
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -18,7 +19,7 @@ def main():
       outer_group_connections = 5,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -28,7 +29,7 @@ def main():
       outer_group_connections = 4,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -38,7 +39,7 @@ def main():
       outer_group_connections = 3,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -48,7 +49,7 @@ def main():
       outer_group_connections = 5,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -58,7 +59,7 @@ def main():
       outer_group_connections = 3,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -68,7 +69,7 @@ def main():
       outer_group_connections = 5,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -78,7 +79,7 @@ def main():
       outer_group_connections = 3,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -88,7 +89,7 @@ def main():
       outer_group_connections = 5,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -98,7 +99,7 @@ def main():
       outer_group_connections = 3,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -108,7 +109,7 @@ def main():
       outer_group_connections = 5,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -118,7 +119,7 @@ def main():
       outer_group_connections = 3,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -128,7 +129,7 @@ def main():
       outer_group_connections = 5,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -138,7 +139,7 @@ def main():
       outer_group_connections = 2,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -148,7 +149,7 @@ def main():
       outer_group_connections = 4,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -158,7 +159,7 @@ def main():
       outer_group_connections = 2,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -168,7 +169,7 @@ def main():
       outer_group_connections = 4,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -178,7 +179,7 @@ def main():
       outer_group_connections = 2,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -188,7 +189,7 @@ def main():
       outer_group_connections = 4,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -198,7 +199,7 @@ def main():
       outer_group_connections = 2,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -208,7 +209,7 @@ def main():
       outer_group_connections = 4,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -218,7 +219,7 @@ def main():
       outer_group_connections = 2,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -228,7 +229,7 @@ def main():
       outer_group_connections = 4,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -238,7 +239,7 @@ def main():
       outer_group_connections = 3,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
     Simulator(
       red_player_num = PLAYERS_ON_EACH_GROUP,
@@ -248,7 +249,7 @@ def main():
       outer_group_connections = 2,
       players_with_behavior_num = PLAYERS_WITH_BEHAVIOR_NUM,
       behavior = BehavioralAttribute(name='COVID19', shape='hexagon'),
-      q_num = 10
+      q_num = Q_NUM
     ),
   )
 
@@ -260,21 +261,11 @@ def main():
       game()
       results.append(game.to_list())
     print(f'{1 + index}/{len(simulators)}')
-  # for s in simulator.random_samples_generator(number_of_samples=10):
-  #   game = Game(*s)
-  #   game()
-  #   results.append(game.to_list())
+
     
   df = pd.DataFrame(results, columns=Game.columns)
-  df.to_excel('results.xlsx')
-  # simulator.explain_len()
-  # for _ in range(30):
-  #   game = Game(*next(simulator))
-  #   game()
-  #   results.append(game.to_list())
+  df.to_excel('results_5_2_100.xlsx')
 
-  # df = pd.DataFrame(results, columns=Game.columns)
-  # simulator.explain_len()
 
 if __name__ == '__main__':
     main()
