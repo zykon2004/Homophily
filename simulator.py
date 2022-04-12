@@ -1,3 +1,4 @@
+from unittest import result
 import gmpy2
 import numpy as np
 from dataclasses import dataclass
@@ -72,17 +73,17 @@ class Simulator:
                               self.behavior.shape, 
                               round(_q, 2))
           )
-    # OUTER CONNECTIONS
-    outer_connection_combinations = *(combinations(
-        product(red_players, blue_players), 
-        self.outer_group_connections
-        )),
+    # # OUTER CONNECTIONS
+    # outer_connection_combinations = *(combinations(
+    #     product(red_players, blue_players), 
+    #     self.outer_group_connections
+    #     )),
     
     while True:
       yield (
         random.choice(red_combinations),
         random.choice(blue_combinations),
-        random.choice(outer_connection_combinations),
+        self.generate_random_product(red_players, blue_players, k=self.outer_group_connections),
         random.choice(red_players_with_behavior),
         random.choice(possible_behaviors),
       )
@@ -158,3 +159,13 @@ class Simulator:
     
   def __len__(self):
     return self.explain_len(_print=False, _return=True)
+  
+  @staticmethod
+  def generate_random_product(*iterables,k=1):
+    '''Return k-sized tuple of random elements from the given iterables.'''
+    result = set()
+    while len(result) < k:
+      result.add(
+        tuple(random.choice(elements) for elements in iterables)
+        )
+    return tuple(result)
