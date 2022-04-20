@@ -20,6 +20,7 @@ class Game:
     'depth', 
     'is_blue_behavior_changed',
     'players_with_behavior', 
+    'homophily',
     'edge_degree', 
     'outer_edges', 
     'inner_edges', 
@@ -37,7 +38,7 @@ class Game:
     self.phases = deque()
     self.phases.append(GamePhase(list(self.players.values())))
     pass
-  
+   
   def create_connections(self, player_connections):
     for players in player_connections:
       for player in players:
@@ -79,7 +80,15 @@ class Game:
   @property
   def connections_mean(self):
     return float(sum(len(player.connections) for player in self.players.values()))/len(self.players)
-
+  
+  @property
+  def homophily(self):
+    return round(float(self.inner_edges) / len(self.outer_group_connections), 2)
+  
+  @property
+  def inner_edges(self):
+    return (len(self.red_players_connections) + len(self.blue_players_connections)) / 2
+  
   def __call__(self):
     modified_players = self.phases[-1].propergate_behavior()
     while(modified_players):
@@ -93,9 +102,10 @@ class Game:
         self.depth,
         self.is_blue_behavior_changed,  
         len(self.players_with_behavior),
+        self.homophily,
         self.connections_mean,
         len(self.outer_group_connections),
-        (len(self.red_players_connections) + len(self.blue_players_connections)) / 2,
+        self.inner_edges,
         len([player for player in self.players.values() if player.group.name == 'Red']),
         len([player for player in self.players.values() if player.group.name == 'Blue']),
         repr(self)
