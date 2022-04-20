@@ -95,6 +95,9 @@ class Game:
         self.phases.append(GamePhase(modified_players))
         modified_players = self.phases[-1].propergate_behavior()
   
+  def play(self):
+    self.__call__()
+    
   def to_list(self):
       return [
         self.behavior.q,

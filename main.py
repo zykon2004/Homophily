@@ -1,3 +1,5 @@
+from typing import Generator
+from tqdm import tqdm
 import pandas as pd
 
 from attribute import BehavioralAttribute
@@ -6,39 +8,57 @@ from simulator import Simulator
 
 
 def main():
-  
+  # Define the simulators
+  players = 5
+  players_with_behavior = 2
   q_num = 100
-  simulators = []
   behavior = BehavioralAttribute(name='COVID19', shape='hexagon')
-  player_num = 6
-  players_with_behavior_num = 2
-  # for player_num in range(3, 10):
-  for inner_edges in range(player_num - 1, int((player_num * (player_num - 1)) / 2) + 1):
-    for outer_edges in range(1, inner_edges):
-      # for players_with_behavior_num in range(1, player_num):
-      simulators.append(Simulator(
-        red_player_num=player_num,
-        red_group_connections=inner_edges,
-        blue_player_num=player_num,
-        blue_group_connections=inner_edges,
-        outer_group_connections=outer_edges,
-        players_with_behavior_num=players_with_behavior_num,
-        q_num=q_num,
-        behavior=behavior,
-      ))
+  pairs=True
+  number_of_samples=100
+  
+  simulators = Simulator.generate_simulators(
+    players=players, 
+    players_with_behavior=players_with_behavior,
+    q_num=q_num, 
+    behavior=behavior,
+    )
+  
+  df = play_simulator(tuple(simulators), pairs=pairs, number_of_samples=number_of_samples)
+  df.to_excel(f'results_{players}_{players_with_behavior}_{q_num}_pairs.xlsx')
+
+
+def play_simulator(simulators, 
+                   pairs=False, 
+                   number_of_samples=100) -> pd.DataFrame:
+  '''Create samples of games based on simulators. 
+  Play the games and return the results as a dataframe.
+  
+  pairs: if True will generate a pair of combinations:
+  normal and less homophily'''
   
   results = []
-  for index, simulator in enumerate(simulators):
-    simulator_generator = simulator.random_combination_generator()
-    for _ in range(100):
-      game = Game(*next(simulator_generator))
-      game()
-      results.append(game.to_list())
-    print(f'{1 + index}/{len(simulators)}')
+  header = Game.columns
+  if pairs:
+    header.append('propegration_difference')
 
-    
-  df = pd.DataFrame(results, columns=Game.columns)
-  df.to_excel(f'results_{player_num}_{players_with_behavior_num}_{q_num}.xlsx')
+  for simulator in tqdm(simulators):
+    simulator_generator = simulator.random_combination_generator(pairs=pairs)
+    for _ in range(number_of_samples):
+      if pairs:
+        game, less_homophily_game = next(simulator_generator)
+        game = Game(*game)
+        game.play()
+        less_homophily_game = Game(*less_homophily_game)
+        less_homophily_game.play()
+        propegration_difference = less_homophily_game.behavior_propagation - game.behavior_propagation
+        results.append(game.to_list() + [propegration_difference])
+      
+      else:
+        game = Game(*next(simulator_generator))
+        game.play()
+        results.append(game.to_list())
+        
+  return pd.DataFrame(results, columns=header)
 
 
 if __name__ == '__main__':
