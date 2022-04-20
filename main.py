@@ -39,7 +39,8 @@ def play_simulator(simulators,
   results = []
   header = Game.columns
   if pairs:
-    header.append('propegration_difference')
+    if 'propegration_difference' not in header:
+      header.append('propegration_difference')
 
   for simulator in tqdm(simulators):
     simulator_generator = simulator.random_combination_generator(pairs=pairs)
