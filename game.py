@@ -23,9 +23,10 @@ class Game:
     'homophily',
     'edge_degree', 
     'outer_edges', 
-    'inner_edges', 
-    'red_players',
-    'blue_players',
+    'inner_edges',
+    'total_edges', 
+    'red_players_count',
+    'blue_players_count',
     'args'
   ]
 
@@ -89,6 +90,14 @@ class Game:
   def inner_edges(self):
     return (len(self.red_players_connections) + len(self.blue_players_connections)) / 2
   
+  @property
+  def red_players_count(self):
+    return len([player for player in self.players.values() if player.group.name == 'Red'])
+  
+  @property
+  def blue_players_count(self):
+    return len([player for player in self.players.values() if player.group.name == 'Blue'])
+  
   def __call__(self):
     modified_players = self.phases[-1].propergate_behavior()
     while(modified_players):
@@ -109,7 +118,8 @@ class Game:
         self.connections_mean,
         len(self.outer_group_connections),
         self.inner_edges,
-        len([player for player in self.players.values() if player.group.name == 'Red']),
-        len([player for player in self.players.values() if player.group.name == 'Blue']),
+        (self.inner_edges * 2) + len(self.outer_group_connections),
+        self.red_players_count,
+        self.blue_players_count,
         repr(self)
       ]

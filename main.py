@@ -9,11 +9,11 @@ from simulator import Simulator
 
 def main():
   # Define the simulators
-  players = 5
-  players_with_behavior = 2
+  players = 6
+  players_with_behavior = 3
   q_num = 100
   behavior = BehavioralAttribute(name='COVID19', shape='hexagon')
-  pairs=True
+  pairs=False
   number_of_samples=100
   
   simulators = Simulator.generate_simulators(
@@ -24,7 +24,7 @@ def main():
     )
   
   df = play_simulator(tuple(simulators), pairs=pairs, number_of_samples=number_of_samples)
-  df.to_excel(f'results_{players}_{players_with_behavior}_{q_num}_pairs.xlsx')
+  df.to_excel(f'generated/raw/results_{players}_{players_with_behavior}_{q_num}{"_pairs" if pairs else ""}.xlsx')
 
 
 def play_simulator(simulators, 
@@ -40,19 +40,25 @@ def play_simulator(simulators,
   header = Game.columns
   if pairs:
     if 'propegration_difference' not in header:
-      header.append('propegration_difference')
+      header.insert(-1, 'propegration_difference')
 
   for simulator in tqdm(simulators):
     simulator_generator = simulator.random_combination_generator(pairs=pairs)
     for _ in range(number_of_samples):
       if pairs:
+        
         game, less_homophily_game = next(simulator_generator)
+        
         game = Game(*game)
         game.play()
+        
         less_homophily_game = Game(*less_homophily_game)
         less_homophily_game.play()
+        
         propegration_difference = less_homophily_game.behavior_propagation - game.behavior_propagation
-        results.append(game.to_list() + [propegration_difference])
+        game_result = game.to_list()
+        game_result.insert(-1, propegration_difference)
+        results.append(game_result)
       
       else:
         game = Game(*next(simulator_generator))
