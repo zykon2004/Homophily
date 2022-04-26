@@ -10,7 +10,7 @@ def main():
   q_num = 100
   pairs = True
   number_of_samples = 100
-  ignore_file_check = False
+  ignore_file_check = True
   
   df = load_simulator_to_df(
     players = players, 

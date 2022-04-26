@@ -4,8 +4,11 @@ from player import Player
 
 
 class GamePhase:
-  def __init__(self, players):
-    self.players = players
+  def __init__(self, players, deepcopy_players=False):
+    if deepcopy_players:
+      self.players = deepcopy(players)
+    else:
+      self.players = players
 
   @property
   def edges(self):

@@ -98,10 +98,10 @@ class Game:
   def blue_players_count(self):
     return len([player for player in self.players.values() if player.group.name == 'Blue'])
   
-  def __call__(self):
+  def __call__(self, deepcopy_players:bool = False):
     modified_players = self.phases[-1].propergate_behavior()
     while(modified_players):
-        self.phases.append(GamePhase(modified_players))
+        self.phases.append(GamePhase(modified_players, deepcopy_players))
         modified_players = self.phases[-1].propergate_behavior()
   
   def play(self):
