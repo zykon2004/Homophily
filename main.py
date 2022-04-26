@@ -23,7 +23,7 @@ def main():
     )
   
   df = play_simulator(tuple(simulators), pairs=pairs, number_of_samples=number_of_samples)
-  df.to_excel(f'generated/raw/results_{players}_{p}_{q_num}{"_pairs" if pairs else ""}.xlsx')
+  df.to_excel(f'generated/raw/results_{players}_{players_with_behavior}_{q_num}{"_pairs" if pairs else ""}_{number_of_samples}.xlsx')
 
 
 def play_simulator(simulators, 
