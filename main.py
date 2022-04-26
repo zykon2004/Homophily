@@ -1,5 +1,6 @@
 from typing import Generator
 from tqdm import tqdm
+import copy
 import pandas as pd
 
 from attribute import BehavioralAttribute
@@ -36,7 +37,7 @@ def play_simulator(simulators,
   normal and less homophily'''
   
   results = []
-  header = Game.columns
+  header = copy.copy(Game.columns)
   if pairs:
     if 'propegration_difference' not in header:
       header.insert(-1, 'propegration_difference')
