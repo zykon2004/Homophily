@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(1, 'Homophily')
 from simulator import Simulator
 from attribute import BehavioralAttribute, Attribute
 from game import Game
