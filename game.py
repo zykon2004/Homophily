@@ -104,8 +104,8 @@ class Game:
         self.phases.append(GamePhase(modified_players, deepcopy_players))
         modified_players = self.phases[-1].propergate_behavior()
   
-  def play(self):
-    self.__call__()
+  def play(self, deepcopy_players:bool = False):
+    self.__call__(deepcopy_players)
     
   def to_list(self):
       return [
