@@ -1,9 +1,12 @@
-from typing import Generator
 from tqdm import tqdm
+from pathlib import Path
 import copy
 import pandas as pd
+from attribute import BehavioralAttribute
 
 from game import Game
+from simulator import Simulator
+
 
 def play_simulator(simulators, 
                    pairs=False, 
@@ -45,3 +48,34 @@ def play_simulator(simulators,
         
   return pd.DataFrame(results, columns=header)
 
+def load_simulator_to_df(players:int = 5,
+                         behavior:BehavioralAttribute = BehavioralAttribute(name='COVID19', shape='hexagon'),
+                         players_with_behavior:int = 2, 
+                         q_num:int = 100, 
+                         pairs:bool = False, 
+                         number_of_samples:int = 100,
+                         ignore_file_check:bool = False,
+                         ) -> pd.DataFrame:
+  
+  # Check if simulator was already generated
+  folder_name = 'Homophily/generated/raw/' if Path('Homophily').exists() else 'generated/raw/'
+  file_name = f'results_{players}_{players_with_behavior}_{q_num}{"_pairs" if pairs else ""}_{number_of_samples}.xlsx'
+  full_file_path = Path(folder_name).joinpath(file_name)
+
+  if full_file_path.exists() and not ignore_file_check:
+    df = pd.read_excel(full_file_path)
+    print(f'Loaded {str(full_file_path)}')
+
+  else:
+      simulators = Simulator.generate_simulators(
+        players=players, 
+        players_with_behavior=players_with_behavior,
+        q_num=q_num, 
+        behavior=behavior,
+      )
+
+      df = play_simulator(tuple(simulators), pairs=pairs, number_of_samples=number_of_samples)
+      print(f'\nGenerated {str(full_file_path)}')
+      df.to_excel(full_file_path)
+  
+  return df

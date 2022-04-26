@@ -1,25 +1,26 @@
 from attribute import BehavioralAttribute
-from simulator import Simulator
-from tools import play_simulator
+from tools import load_simulator_to_df
 
 
 def main():
   # Define the simulators
   players = 6
+  behavior = BehavioralAttribute(name='COVID19', shape='hexagon')
   players_with_behavior = 3
   q_num = 100
-  behavior = BehavioralAttribute(name='COVID19', shape='hexagon')
-  pairs=True
-  number_of_samples=100
-  simulators = Simulator.generate_simulators(
-    players=players, 
-    players_with_behavior=players_with_behavior,
-    q_num=q_num, 
-    behavior=behavior, 
-    )
+  pairs = True
+  number_of_samples = 100
+  ignore_file_check = False
   
-  df = play_simulator(tuple(simulators), pairs=pairs, number_of_samples=number_of_samples)
-  df.to_excel(f'generated/raw/results_{players}_{players_with_behavior}_{q_num}{"_pairs" if pairs else ""}_{number_of_samples}.xlsx')
+  df = load_simulator_to_df(
+    players = players, 
+    behavior = behavior,
+    players_with_behavior = players_with_behavior, 
+    q_num = q_num, 
+    pairs = pairs, 
+    number_of_samples = number_of_samples, 
+    ignore_file_check = ignore_file_check
+    )
 
 
 if __name__ == '__main__':
