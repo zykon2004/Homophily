@@ -33,19 +33,22 @@ class GamePhase:
 
     Returns True if the behavior of any player changed, False otherwise.
     """
+    
     is_modified = False
-    # deepcopy is needed because otherwise the behavior 
-    # would propergate to the whole group in 1 iteration
-    modified_players = deepcopy(self.players)
-    for original, _copy in zip(self.players, modified_players):
-      result =  original.check_connections_behavior()
-      if (result):
-        _copy.behavior = result
-        _copy.size = Player.default_size + 5
+    players_to_modify = set()
+    
+    for index, player in enumerate(self.players):
+      behavior =  player.check_connections_behavior()
+      if behavior:
+        players_to_modify.add((index, behavior))
         is_modified = True
       else:
-        _copy.size = _copy.default_size
-    
+        player.size = player.default_size
+        
+    for index, behavior in players_to_modify:
+      self.players[index].behavior = behavior
+      self.players[index].size = Player.default_size + 5
+      
     if is_modified:
-      return modified_players
+      return self.players
     return False
