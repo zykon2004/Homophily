@@ -51,6 +51,7 @@ class GamePhase:
     for index, behavior in players_to_modify:
       self.players[index].behavior = behavior
       self.players[index].size = Player.default_size + 5
+      self.players[index].update_neigbours_about_behavior_change(behavior)
       
     if is_modified:
       return self.players

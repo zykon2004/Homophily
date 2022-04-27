@@ -75,7 +75,7 @@ def load_simulator_to_df(players:int = 5,
       )
 
       df = play_simulator(tuple(simulators), pairs=pairs, number_of_samples=number_of_samples)
-      print(f'\nGenerated {str(full_file_path)}')
       df.to_excel(full_file_path)
+      print(f'\nGenerated {str(full_file_path)}')
   
   return df
