@@ -4,12 +4,12 @@ from tools import load_simulator_to_df
 
 def main():
   # Define the simulators
-  players = 8
+  players = 7
   behavior = BehavioralAttribute(name='COVID19', shape='hexagon')
-  players_with_behavior = 1
+  players_with_behavior = 2
   q_num = 100
   pairs = True
-  number_of_samples = 20
+  number_of_samples = 100
   ignore_file_check = True
   
   df = load_simulator_to_df(
