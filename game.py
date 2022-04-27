@@ -55,8 +55,7 @@ class Game:
     
     for player in players_with_behavior:
       with suppress(KeyError):  # Could happen if player has no connections
-        self.players[player].behavior = behavior
-        self.players[player].size = Player.default_size + 5
+        self.players[player].update_behavior(behavior)
 
   @property
   def depth(self):

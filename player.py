@@ -77,12 +77,15 @@ class Player:
     
     return True
   
-  def update_neigbours_about_behavior_change(self, new_behavior: Attribute):
-    """Update the neigbours about the behavior change.
+  def update_behavior(self, new_behavior: Attribute):
+    """Update the behavior of the player.
     """
     for connection in self.connections:
       connection.neigbour_behavior[self.behavior] -= 1
       connection.neigbour_behavior[new_behavior] += 1
+    
+    self.behavior = new_behavior
+    self.size = self.default_size + 5  
   
   def __deepcopy__(self, memo):
     cls = self.__class__
