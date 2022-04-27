@@ -8,7 +8,6 @@ from attribute import BehavioralAttribute, Attribute
 from player import Player
 from game import Game
 
-
 @dataclass
 class Simulator:
   red_player: int
@@ -20,39 +19,39 @@ class Simulator:
   behavior: BehavioralAttribute
   q_num: int = 10
   
-  def __post_init__(self):
-    self._all_combination = self.generate_all_combination()
-    self.counter = 0
+  # def __post_init__(self):
+  #   self._all_combination = self.generate_all_combination()
+  #   self.counter = 0
 
-  def __iter__(self):
-    return self._all_combination
+  # def __iter__(self):
+  #   return self._all_combination
 
-  def __next__(self):
-    return next(self._all_combination)
+  # def __next__(self):
+  #   return next(self._all_combination)
 
-  @staticmethod
-  def create_players(number_of_players, attribute: Attribute):
-    return [Player(f'{attribute.name}{index}', attribute) \
-                for index in range(0, number_of_players)]
+  # @staticmethod
+  # def create_players(number_of_players, attribute: Attribute):
+  #   return [Player(f'{attribute.name}{index}', attribute) \
+  #               for index in range(0, number_of_players)]
     
-  @staticmethod
-  def combo_to_set(combo) -> set:
-    player_in_combo = set()
-    for connection in combo:
-      for player in connection:
-        player_in_combo.add(player)
-    return player_in_combo
+  # @staticmethod
+  # def combo_to_set(combo) -> set:
+  #   player_in_combo = set()
+  #   for connection in combo:
+  #     for player in connection:
+  #       player_in_combo.add(player)
+  #   return player_in_combo
   
   
-  def random_samples_generator(self, number_of_samples):
-    random_indexes = random.sample(range(0, len(self)), number_of_samples)
-    random_indexes.sort()
-    previous_index = 0
-    for index in random_indexes:
-      for _ in range(index - previous_index - 1):
-        next(self)
-      yield next(self)
-      previous_index = index
+  # def random_samples_generator(self, number_of_samples):
+  #   random_indexes = random.sample(range(0, len(self)), number_of_samples)
+  #   random_indexes.sort()
+  #   previous_index = 0
+  #   for index in random_indexes:
+  #     for _ in range(index - previous_index - 1):
+  #       next(self)
+  #     yield next(self)
+  #     previous_index = index
   
   def random_combination_generator(self, pairs=False):
     '''Generate random combintaion of inner group connections, 
@@ -63,14 +62,14 @@ class Simulator:
     combination based on modified initial values to have less homophily)'''
     # RED
     red_players = *(f'Red{number}' for number in range(self.red_player)),
-    possible_red_connections = combinations(red_players, 2)
-    red_combinations = *(combinations(possible_red_connections, self.red_group_connections)),
+    # possible_red_connections = combinations(red_players, 2)
+    # red_combinations = *(combinations(possible_red_connections, self.red_group_connections)),
     red_players_with_behavior = *(combinations(red_players, self.players_with_behavior)),
 
     # BLUE
     blue_players = *(f'Blue{number}' for number in range(self.blue_player)),
-    possible_blue_connections = combinations(blue_players, 2)
-    blue_combinations = *(combinations(possible_blue_connections, self.blue_group_connections)),
+    # possible_blue_connections = combinations(blue_players, 2)
+    # blue_combinations = *(combinations(possible_blue_connections, self.blue_group_connections)),
 
     # Q
     possible_behaviors = []
@@ -87,8 +86,8 @@ class Simulator:
     #     )),
     
     while True:
-      random_red_combinations = random.choice(red_combinations)
-      random_blue_combinations = random.choice(blue_combinations)
+      random_red_combinations = self.generate_random_product(red_players, red_players, k=self.red_group_connections)
+      random_blue_combinations = self.generate_random_product(blue_players, blue_players, k=self.blue_group_connections)
       random_outer_connections =  self.generate_random_product(red_players, blue_players, k=self.outer_group_connections)
       random_red_players_with_behavior = random.choice(red_players_with_behavior)
       random_possible_behaviors = random.choice(possible_behaviors)
@@ -117,43 +116,43 @@ class Simulator:
       else:
         yield normal_combination
 
-  def generate_all_combination(self):
+  # def generate_all_combination(self):
 
-    # RED
-    red_players = *(f'Red{number}' for number in range(self.red_player)),
-    possible_red_connections = combinations(red_players, 2)
-    red_combinations = combinations(possible_red_connections, self.red_group_connections)
-    red_players_with_behavior = combinations(red_players, self.players_with_behavior)
+  #   # RED
+  #   red_players = *(f'Red{number}' for number in range(self.red_player)),
+  #   possible_red_connections = combinations(red_players, 2)
+  #   red_combinations = combinations(possible_red_connections, self.red_group_connections)
+  #   red_players_with_behavior = combinations(red_players, self.players_with_behavior)
 
-    # BLUE
-    blue_players = *(f'Blue{number}' for number in range(self.blue_player)),
-    possible_blue_connections = combinations(blue_players, 2)
-    blue_combinations = combinations(possible_blue_connections, self.blue_group_connections)
+  #   # BLUE
+  #   blue_players = *(f'Blue{number}' for number in range(self.blue_player)),
+  #   possible_blue_connections = combinations(blue_players, 2)
+  #   blue_combinations = combinations(possible_blue_connections, self.blue_group_connections)
 
-    # Q
-    possible_behaviors = []
-    for _q in np.linspace(0.1, 1.0, num=self.q_num):
-      possible_behaviors.append(
-          BehavioralAttribute(self.behavior.name, 
-                              self.behavior.shape, 
-                              round(_q, 2))
-          )
+  #   # Q
+  #   possible_behaviors = []
+  #   for _q in np.linspace(0.1, 1.0, num=self.q_num):
+  #     possible_behaviors.append(
+  #         BehavioralAttribute(self.behavior.name, 
+  #                             self.behavior.shape, 
+  #                             round(_q, 2))
+  #         )
     
-    # OUTER CONNECTIONS
-    outer_connection_combinations = combinations(
-        product(red_players, blue_players), 
-        self.outer_group_connections
-        )
+  #   # OUTER CONNECTIONS
+  #   outer_connection_combinations = combinations(
+  #       product(red_players, blue_players), 
+  #       self.outer_group_connections
+  #       )
     
-    for _aggregated_product in product(
-      red_combinations, 
-      blue_combinations, 
-      outer_connection_combinations, 
-      red_players_with_behavior, 
-      possible_behaviors
-      ):
-      yield _aggregated_product
-      self.counter += 1
+  #   for _aggregated_product in product(
+  #     red_combinations, 
+  #     blue_combinations, 
+  #     outer_connection_combinations, 
+  #     red_players_with_behavior, 
+  #     possible_behaviors
+  #     ):
+  #     yield _aggregated_product
+  #     self.counter += 1
         
   def explain_len(self, _print:bool = True, _return = False):
     red_combinations = gmpy2.comb(gmpy2.comb(self.red_player, 2), self.red_group_connections)

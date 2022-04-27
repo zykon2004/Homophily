@@ -1,17 +1,38 @@
 from attribute import BehavioralAttribute
-from tools import load_simulator_to_df
-
+import simulator
+from tools import load_simulator_to_df, play_simulator
+from simulator import Simulator
 
 def main():
   # Define the simulators
-  players = 7
+  players = 8
   behavior = BehavioralAttribute(name='COVID19', shape='hexagon')
   players_with_behavior = 2
   q_num = 100
   pairs = True
   number_of_samples = 100
   ignore_file_check = True
-  
+  # simulators = (
+  #   Simulator(red_player=players,
+  #             blue_player=players,
+  #             players_with_behavior=players_with_behavior,
+  #             red_group_connections = 12,
+  #             blue_group_connections = 12,
+  #             outer_group_connections = 3, 
+  #             q_num=q_num, 
+  #             behavior=behavior),
+  #   Simulator(red_player=players,
+  #             blue_player=players,
+  #             players_with_behavior=players_with_behavior,
+  #             red_group_connections = 12,
+  #             blue_group_connections = 12,
+  #             outer_group_connections = 4, 
+  #             q_num=q_num, 
+  #             behavior=behavior),
+    
+  #   )
+
+  # print(play_simulator(simulators, pairs=pairs, number_of_samples=number_of_samples))
   df = load_simulator_to_df(
     players = players, 
     behavior = behavior,
