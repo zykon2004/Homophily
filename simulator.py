@@ -199,9 +199,9 @@ class Simulator:
       result = set()
       
     while len(result) < k:
-      result.add(
-        tuple(random.choice(elements) for elements in iterables)
-        )
+      _result = {random.choice(elements) for elements in iterables}
+      if len(_result) == len(iterables):
+        result.add(tuple(_result))
     return tuple(result)
   
   @staticmethod
