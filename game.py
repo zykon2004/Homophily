@@ -37,7 +37,7 @@ class Game:
     self.create_connections(self.outer_group_connections)
     self.introduce_behavior(self.players_with_behavior, self.behavior)
     self.phases = deque()
-    self.phases.append(GamePhase(list(self.players.values()),deepcopy_players=True))
+    self.phases.append(GamePhase(list(self.players.values())))
     pass
    
   def create_connections(self, player_connections):
