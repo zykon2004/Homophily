@@ -49,8 +49,7 @@ class GamePhase:
         player.size = player.default_size
         
     for index, behavior in players_to_modify:
-      self.players[index].behavior = behavior
-      self.players[index].size = Player.default_size + 5
+      self.players[index].update_behavior(behavior)
       
     if is_modified:
       return self.players

@@ -3,7 +3,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from copy import deepcopy
 
-from attribute import GroupAttribute, BehavioralAttribute
+from attribute import GroupAttribute, BehavioralAttribute, Attribute
 
 
 @dataclass
@@ -11,6 +11,7 @@ class Player:
   name: str
   group: GroupAttribute
   behavior: BehavioralAttribute = field(init=False)
+  neigbour_behavior: Counter = field(init=False, default_factory=Counter, repr=False)
   connections: set = field(default_factory=set)
   default_size: int = field(default=8, repr=False)
   RED_BEHAVIOR: ClassVar[GroupAttribute] = GroupAttribute(name='Red', color='Red')
@@ -31,11 +32,7 @@ class Player:
 
     Return: True if behavior changed.
     """
-    behaviors = Counter()
-    for connection in self.connections:
-      behaviors[connection.behavior] += 1
-
-    for behavior, count in behaviors.items():
+    for behavior, count in self.neigbour_behavior.items():
       if behavior.q <= float(count / len(self.connections)) and self.behavior != behavior:
         return behavior
     
@@ -58,7 +55,11 @@ class Player:
       return False
 
     self.connections.add(other)
+    self.neigbour_behavior[other.behavior] += 1
+    
     other.connections.add(self)
+    other.neigbour_behavior[self.behavior] += 1
+    
     return True
   
   def disconnect(self, other) -> bool:
@@ -69,9 +70,23 @@ class Player:
       return False
 
     self.connections.remove(other)
+    self.neigbour_behavior[other.behavior] -= 1
+    
     other.connections.remove(self)
+    other.neigbour_behavior[self.behavior] -= 1
+    
     return True
-
+  
+  def update_behavior(self, new_behavior: Attribute):
+    """Update the behavior of the player.
+    """
+    for connection in self.connections:
+      connection.neigbour_behavior[self.behavior] -= 1
+      connection.neigbour_behavior[new_behavior] += 1
+    
+    self.behavior = new_behavior
+    self.size = self.default_size + 5  
+  
   def __deepcopy__(self, memo):
     cls = self.__class__
     result = cls.__new__(cls)
