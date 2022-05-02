@@ -3,6 +3,7 @@ import numpy as np
 from dataclasses import dataclass
 from itertools import combinations, product
 import random
+import math
 
 from attribute import BehavioralAttribute, Attribute
 from player import Player
@@ -73,11 +74,12 @@ class Simulator:
 
     # Q
     possible_behaviors = []
+    digits = int(math.log10(self.q_num))
     for _q in np.linspace(0.1, 1.0, num=self.q_num):
       possible_behaviors.append(
           BehavioralAttribute(self.behavior.name, 
                               self.behavior.shape, 
-                              round(_q, 2))
+                              round(_q, digits))
           )
     # # OUTER CONNECTIONS
     # outer_connection_combinations = *(combinations(
@@ -129,6 +131,7 @@ class Simulator:
   #   possible_blue_connections = combinations(blue_players, 2)
   #   blue_combinations = combinations(possible_blue_connections, self.blue_group_connections)
 
+<<<<<<< Updated upstream
   #   # Q
   #   possible_behaviors = []
   #   for _q in np.linspace(0.1, 1.0, num=self.q_num):
@@ -143,6 +146,23 @@ class Simulator:
   #       product(red_players, blue_players), 
   #       self.outer_group_connections
   #       )
+=======
+    # Q
+    possible_behaviors = []
+    digits = int(math.log10(self.q_num))
+    for _q in np.linspace(0.1, 1.0, num=self.q_num):
+      possible_behaviors.append(
+          BehavioralAttribute(self.behavior.name, 
+                              self.behavior.shape, 
+                              round(_q, digits))
+          )
+     
+    # OUTER CONNECTIONS
+    outer_connection_combinations = combinations(
+        product(red_players, blue_players), 
+        self.outer_group_connections
+        )
+>>>>>>> Stashed changes
     
   #   for _aggregated_product in product(
   #     red_combinations, 
