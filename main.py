@@ -8,7 +8,7 @@ def main():
   players = 8
   behavior = BehavioralAttribute(name='COVID19', shape='hexagon')
   players_with_behavior = 2
-  q_num = 100
+  q_num = 1000
   pairs = True
   number_of_samples = 100
   ignore_file_check = True
