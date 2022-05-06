@@ -5,12 +5,12 @@ from simulator import Simulator
 
 def main():
   # Define the simulators
-  players = 8
+  players = 5
   behavior = BehavioralAttribute(name='COVID19', shape='hexagon')
   players_with_behavior = 2
   q_num = 1000
   pairs = True
-  number_of_samples = 100
+  number_of_samples = 500
   ignore_file_check = True
   # simulators = (
   #   Simulator(red_player=players,

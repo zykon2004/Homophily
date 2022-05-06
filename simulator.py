@@ -75,7 +75,7 @@ class Simulator:
     # Q
     possible_behaviors = []
     digits = int(math.log10(self.q_num))
-    for _q in np.linspace(0.1, 1.0, num=self.q_num):
+    for _q in np.linspace(0, 1.0, num=self.q_num):
       possible_behaviors.append(
           BehavioralAttribute(self.behavior.name, 
                               self.behavior.shape, 
@@ -134,7 +134,7 @@ class Simulator:
     # # Q
     # possible_behaviors = []
     # digits = int(math.log10(self.q_num))
-    # for _q in np.linspace(0.1, 1.0, num=self.q_num):
+    # for _q in np.linspace(0, 1.0, num=self.q_num):
     #   possible_behaviors.append(
     #       BehavioralAttribute(self.behavior.name, 
     #                           self.behavior.shape, 

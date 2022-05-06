@@ -54,6 +54,7 @@ def play_simulator(simulators,
   if pairs:
     if 'propegration_difference' not in header:
       header.insert(-1, 'propegration_difference')
+      header.append('pair_args')
 
   for simulator in tqdm(tuple(simulators)):
     simulator_generator = simulator.random_combination_generator(pairs=pairs)
@@ -71,6 +72,7 @@ def play_simulator(simulators,
         propegration_difference = less_homophily_game.behavior_propagation - game.behavior_propagation
         game_result = game.to_list()
         game_result.insert(-1, propegration_difference)
+        game_result.append(str(less_homophily_game))
         results.append(game_result)
       
       else:
