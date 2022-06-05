@@ -168,7 +168,7 @@ class Simulator:
 
     if _print:
       print(f'''
-      Q's: {self.q_num} {[round(_q, 2) for _q in np.linspace(0.1, 1.0, num=self.q_num)]}
+      Q's: {self.q_num}
 
       (Players nCr 2) = Inner Connections
       (Inner Connections nCr Group Connections) = Group Combination
@@ -179,7 +179,7 @@ class Simulator:
       Red Players with behavior: {self.players_with_behavior}\tCombinations: {red_players_with_behavior}
       
       (Red Players * Blue Players nCr Outer Group Connections) = Outer Group Combinations
-      Total Players: {self.blue_player + self.red_player}\tConnections: {self.outer_group_connections}\tCombinations: {networks_combinations}
+      Total Players: {self.blue_player * self.red_player}\tConnections: {self.outer_group_connections}\tCombinations: {networks_combinations}
 
       Total Combination = Red Group Combination * Blue Group Combination * Outer Group Combinations * Players with Behavior Combination * Qs
       {red_combinations} * {blue_combinations} * {networks_combinations} * {red_players_with_behavior} * {self.q_num}
